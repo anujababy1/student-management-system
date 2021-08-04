@@ -92,6 +92,9 @@ class StudentController extends Controller
     public function edit($id)
     { 
         $student = $this->student->find($id);
+        if(!$student){
+            abort(404);
+        }
         $teachers=$this->student->getTeachers();
         return view('students.edit', compact('student','teachers'));    
     }

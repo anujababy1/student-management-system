@@ -26,7 +26,7 @@ class MarkController extends Controller
     }
 
      /**
-     * Smark listing.
+     * mark listing.
      *
      * @return \Illuminate\Http\Response
      */
@@ -105,6 +105,9 @@ class MarkController extends Controller
     {
         $terms=$this->student->getTerms();
         $mark=$this->mark->find($id);
+        if(!$mark){
+            abort(404);
+        }
         $students = $this->student->all();
         return view('marks.edit', compact('mark','students','terms'));    
     }
@@ -158,10 +161,4 @@ class MarkController extends Controller
         return redirect('/marks')->with('success', "Mark deleted successfully");
     }
 
-    public function messages()
-    {
-        return [
-            'student_id.unique' => 'couple username and company_id has to be unique.',
-        ];
-    }
 }
